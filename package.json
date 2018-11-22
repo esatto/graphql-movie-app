@@ -1,0 +1,56 @@
+{
+  "name": "movie-app",
+  "version": "1.0.0",
+  "author": {
+    "name": "Jonathan Edenström",
+    "email": "jonathan@edenstrom.io",
+    "url": "https://edenstrom.io"
+  },
+  "homepage": "https://github.com/esatto/graphql-movie-app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/esatto/graphql-movie-app.git"
+  },
+  "dependencies": {
+    "@reach/router": "^1.2.1",
+    "apollo-cache-inmemory": "^1.3.9",
+    "apollo-client": "^2.4.5",
+    "apollo-link-http": "^1.5.5",
+    "formik": "^1.3.2",
+    "graphql": "^14.0.2",
+    "graphql-tag": "^2.10.0",
+    "react": "^16.7.0-alpha.2",
+    "react-apollo": "^2.2.4",
+    "react-dom": "^16.7.0-alpha.2",
+    "react-scripts": "2.1.1"
+  },
+  "devDependencies": {
+    "@types/graphql": "^14.0.3",
+    "@types/jest": "23.3.9",
+    "@types/node": "10.12.7",
+    "@types/reach__router": "^1.2.2",
+    "@types/react": "^16.7.6",
+    "@types/react-dom": "^16.0.9",
+    "@types/styled-components": "^4.1.0",
+    "@types/ws": "^6.0.1",
+    "apollo": "^2.1.1",
+    "styled-components": "^4.1.1",
+    "typescript": "3.1.6"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "graphql": "apollo codegen:generate --addTypename --target=typescript --queries=\"src/**/*.tsx\" --globalTypesFile=\"src/queries/__generated__/globalTypes.ts\""
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
