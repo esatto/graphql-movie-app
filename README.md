@@ -32,7 +32,7 @@ The project is configured with the apollo.config.js. You need to run the API loc
 
 This project was partially coded during a live code session, and is not completely made for production use.
 
-The common directory was created mostly to clean up components that wasn't necessary to show during the live coding.
+Components in the common directory is mostly styled components that weren't necessary for the live coding.
 
 ## Create React App
 
