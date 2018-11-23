@@ -4,10 +4,11 @@ import { ActorMovieList } from '../components/ActorMovieList';
 import { Description } from '../components/common/Description';
 import { Header } from '../components/common/Header';
 import { H1, H3 } from '../components/common/Heading';
+import { LoadingScreen } from '../components/common/LoadingScreen';
 import { MetadataItem } from '../components/common/MetadataItem';
 import { MetadataWrapper } from '../components/common/MetadataWrapper';
 import { Wrapper } from '../components/common/Wrapper';
-import { fakeStarring } from '../fakeData';
+import { ActorQuery, ACTOR_QUERY } from '../queries/ActorQuery';
 
 export interface ActorScreenProps extends RouteComponentProps<{ id: string }> {}
 
@@ -15,22 +16,33 @@ const ActorScreen: React.FC<ActorScreenProps> = props => {
   if (!props.id) return <Redirect to="/" />;
 
   return (
-    <div>
-      <Header imageUrl="https://m.media-amazon.com/images/M/MV5BMTY4NTEwNDg1MV5BMl5BanBnXkFtZTgwODMwMDA0ODE@._V1_SY1000_CR0,0,799,1000_AL_.jpg">
-        <H1>Paul Rudd</H1>
-      </Header>
-      <MetadataWrapper>
-        <MetadataItem title="Birthday" content="1970-01-01" />
-        <MetadataItem title="Born in" content="USA" />
-      </MetadataWrapper>
-      <Wrapper>
-        <Description>Good actor? Bad actor? Who knows.</Description>
+    <ActorQuery query={ACTOR_QUERY} variables={{ id: props.id }}>
+      {({ data, loading }) => {
+        if (loading) return <LoadingScreen />;
+        if (!data || !data.actor) return 'No data';
 
-        <H3>Stars in movies</H3>
-      </Wrapper>
+        const actor = data.actor;
 
-      <ActorMovieList roles={fakeStarring} />
-    </div>
+        return (
+          <div>
+            <Header imageUrl={actor.imageUrl}>
+              <H1>{actor.name}</H1>
+            </Header>
+            <MetadataWrapper>
+              <MetadataItem title="Birthday" content={actor.birthday} />
+              <MetadataItem title="Born in" content={actor.nationality} />
+            </MetadataWrapper>
+            <Wrapper>
+              <Description>{actor.shortBio}</Description>
+
+              <H3>Stars in movies</H3>
+            </Wrapper>
+
+            <ActorMovieList roles={data.actor.rolesInMovies} />
+          </div>
+        );
+      }}
+    </ActorQuery>
   );
 };
 

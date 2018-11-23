@@ -1,25 +1,15 @@
 import React from 'react';
+import { SingleMovie_movie_roles } from '../queries/__generated__/SingleMovie';
 import { RoleListItem } from './RoleListItem';
 
-interface Props {}
+interface Props {
+  roles: SingleMovie_movie_roles[];
+}
 
-const fakeRoles = [1, 2, 3];
-
-export const RoleList: React.FC<Props> = () => (
+export const RoleList: React.FC<Props> = ({ roles }) => (
   <div>
-    {fakeRoles.map(role => (
-      <RoleListItem
-        key={role}
-        role={{
-          actor: {
-            id: '123' + role,
-            name: 'Paul Rudd',
-            imageUrl:
-              'https://m.media-amazon.com/images/M/MV5BMTY4NTEwNDg1MV5BMl5BanBnXkFtZTgwODMwMDA0ODE@._V1_SY1000_CR0,0,799,1000_AL_.jpg'
-          },
-          roles: ['Scott Lang', 'Ant Man']
-        }}
-      />
+    {roles.map(role => (
+      <RoleListItem key={role.actor.id} role={role} />
     ))}
   </div>
 );

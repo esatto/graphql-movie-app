@@ -1,4 +1,8 @@
 import React from 'react';
+import {
+  AddReviewMutation,
+  ADD_REVIEW_MUTATION
+} from '../queries/AddReviewMutation';
 import { Button } from './common/Button';
 import { Modal } from './common/Modal';
 import { ReviewForm } from './ReviewForm';
@@ -23,13 +27,22 @@ export class ReviewModal extends React.Component<Props, State> {
     return (
       <>
         <Modal active={this.state.open} close={this.close}>
-          <ReviewForm
-            movieId={this.props.movieId}
-            onSubmit={async data => {
-              console.log(data);
-              this.close();
-            }}
-          />
+          <AddReviewMutation mutation={ADD_REVIEW_MUTATION}>
+            {addReview => (
+              <ReviewForm
+                movieId={this.props.movieId}
+                onSubmit={async data => {
+                  await addReview({
+                    variables: {
+                      review: data
+                    }
+                  });
+                  console.log(data);
+                  this.close();
+                }}
+              />
+            )}
+          </AddReviewMutation>
         </Modal>
 
         <Button onClick={this.open}>Write review</Button>
